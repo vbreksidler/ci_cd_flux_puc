@@ -30,6 +30,12 @@ app.get("/atletas", (req, res) => {
 app.post("/atletas", (req, res) => {
   const { nome, modalidade } = req.body;
 
+  if (!nome || !modalidade) {
+    return res.status(400).json({
+      erro: "Nome e modalidade são obrigatórios"
+    });
+  }
+
   const novoAtleta = {
     id: atletas.length + 1,
     nome,
