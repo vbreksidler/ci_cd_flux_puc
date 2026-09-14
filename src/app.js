@@ -27,6 +27,20 @@ app.get("/atletas", (req, res) => {
   res.json(atletas);
 });
 
+app.post("/atletas", (req, res) => {
+  const { nome, modalidade } = req.body;
+
+  const novoAtleta = {
+    id: atletas.length + 1,
+    nome,
+    modalidade
+  };
+
+  atletas.push(novoAtleta);
+
+  res.status(201).json(novoAtleta);
+});
+
 module.exports = app;
 
 if (require.main === module) {
