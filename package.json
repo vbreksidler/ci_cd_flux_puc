@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/vbreksidler/ci_cd_flux_puc/issues"
   },
-  "homepage": "https://github.com/vbreksidler/ci_cd_flux_puc#readme"
+  "homepage": "https://github.com/vbreksidler/ci_cd_flux_puc#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
