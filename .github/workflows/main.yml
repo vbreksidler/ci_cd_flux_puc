@@ -1,16 +1,22 @@
-name: CI
+name: CI/CD - API de Atletas
 
 on:
   push:
     branches:
       - main
       - feature/**
+
   pull_request:
     branches:
       - main
 
 jobs:
+
+  # =========================
+  # CI - Integração Contínua
+  # =========================
   test:
+    name: CI - Testes
     runs-on: ubuntu-latest
 
     steps:
@@ -21,9 +27,50 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Instalar dependências
         run: npm ci
 
       - name: Executar testes
         run: npm test
+
+  # =========================
+  # CD - Entrega Contínua
+  # =========================
+  delivery:
+    name: CD - Gerar artefato
+    runs-on: ubuntu-latest
+    needs: test
+
+    # CD somente depois que o código chegar na main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependências de produção
+        run: npm ci --omit=dev
+
+      - name: Preparar aplicação para entrega
+        run: |
+          mkdir -p dist
+          cp -r src dist/
+          cp package.json dist/
+          cp package-lock.json dist/
+
+      - name: Gerar pacote da aplicação
+        run: tar -czf api-atletas.tar.gz dist
+
+      - name: Publicar artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-atletas
+          path: api-atletas.tar.gz
