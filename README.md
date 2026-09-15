@@ -17,3 +17,17 @@ desenvolvida como atividade prática de CI/CD.
 
 O workflow executa automaticamente os testes do projeto
 em pushes e Pull Requests.
+
+## Execução do projeto
+
+Instale as dependências:
+
+npm install
+
+Execute os testes:
+
+npm test
+
+Inicie a aplicação:
+
+node src/app.js
