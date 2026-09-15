@@ -44,7 +44,7 @@ jobs:
     needs: test
 
     # CD somente depois que o código chegar na main
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout do código
