@@ -31,3 +31,13 @@ npm test
 Inicie a aplicação:
 
 node src/app.js
+
+## CI/CD
+
+O projeto utiliza GitHub Actions para automatizar o fluxo de integração e entrega contínua.
+
+Na etapa de CI são executados:
+- instalação das dependências;
+- testes automatizados.
+
+Após o merge na branch main, a etapa de CD gera um artefato da aplicação pronto para entrega.
